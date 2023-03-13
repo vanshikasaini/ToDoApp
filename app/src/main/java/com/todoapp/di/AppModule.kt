@@ -7,8 +7,9 @@ import com.todoapp.feature_note.data.repository.NoteRepoImpl
 import com.todoapp.feature_note.domain.repo.NoteRepository
 import com.todoapp.feature_note.domain.usecases.AddNoteUseCase
 import com.todoapp.feature_note.domain.usecases.DeleteNoteUseCase
-import com.todoapp.feature_note.domain.usecases.GetNoesUseCase
+import com.todoapp.feature_note.domain.usecases.GetNotesUseCase
 import com.todoapp.feature_note.domain.usecases.NoteUseCases
+import com.todoapp.feature_note.domain.usecases.SingleNoteUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,9 +49,10 @@ object AppModule {
     fun provideNoteUseCases(repository: NoteRepository):NoteUseCases{
 
         return NoteUseCases(
-            getNotes = GetNoesUseCase(repository),
+            getNotes = GetNotesUseCase(repository),
             deleteNote = DeleteNoteUseCase(repository),
-            addNote = AddNoteUseCase(repository)
+            addNote = AddNoteUseCase(repository),
+            getNote = SingleNoteUseCase(repository)
         )
     }
 }

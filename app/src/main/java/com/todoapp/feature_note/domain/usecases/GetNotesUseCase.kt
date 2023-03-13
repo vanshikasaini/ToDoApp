@@ -7,13 +7,13 @@ import com.todoapp.feature_note.domain.util.OrderType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class GetNoesUseCase(
+class GetNotesUseCase(
     private val repository: NoteRepository
 ) {
     operator fun invoke(noteOrder: NoteOrder = NoteOrder.Date(OrderType.Descending)): Flow<List<Note>> {
         return repository.getNotes().map { notes ->
 
-            when (noteOrder.orderTye) {
+            when (noteOrder.orderType) {
                 is OrderType.Ascending -> {
                     when (noteOrder) {
                         is NoteOrder.Title -> notes.sortedBy { it.title.lowercase() }
