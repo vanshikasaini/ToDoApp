@@ -1,5 +1,6 @@
 package com.todoapp.feature_note.presentation.notes
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -26,10 +27,12 @@ class NotesViewModel @Inject constructor(
     private var recentDeletedNote: Note? = null
 
 
-    private  var getNoteJob: Job?=null
+    private var getNoteJob: Job? = null
+
     init {
         getNotes(NoteOrder.Date(OrderType.Descending))
     }
+
     /*
     * call from UI
     * */
@@ -37,12 +40,14 @@ class NotesViewModel @Inject constructor(
         when (event) {
 
             is NoteEvents.Order -> {
-                if(state.value.noteOrder::class == event.noteOrder::class &&
-                    state.value.noteOrder.orderType== event.noteOrder.orderType){
+                if (state.value.noteOrder::class == event.noteOrder::class &&
+                    state.value.noteOrder.orderType == event.noteOrder.orderType
+                ) {
                     return
                 }
                 getNotes(event.noteOrder)
             }
+
             is NoteEvents.DeleteNote -> {
                 viewModelScope.launch {
                     /*
@@ -73,16 +78,19 @@ class NotesViewModel @Inject constructor(
 
     }
 
-    private fun getNotes(noteOrder: NoteOrder){
-/*
-* everytime called getNotes fun- get new flow a new instance of that flow
-* so when we call everytime we should cancel the old coroutine
-* */
+    private fun getNotes(noteOrder: NoteOrder) {
+        /*
+        * everytime called getNotes fun- get new flow a new instance of that flow
+        * so when we call everytime we should cancel the old coroutine
+        * */
+        Log.e("=Note Ordertype==", "==${noteOrder.orderType}")
         getNoteJob?.cancel()
 
-        getNoteJob=noteUsesCases.getNotes().onEach {notes->
-            _state.value=state.value.copy(notes =notes,
-                noteOrder=noteOrder)
+        getNoteJob = noteUsesCases.getNotes(noteOrder).onEach { notes ->
+            _state.value = state.value.copy(
+                notes = notes,
+                noteOrder = noteOrder
+            )
         }.launchIn(viewModelScope)
     }
 }

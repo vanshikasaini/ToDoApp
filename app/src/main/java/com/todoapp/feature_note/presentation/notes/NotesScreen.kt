@@ -1,5 +1,6 @@
 package com.todoapp.feature_note.presentation.notes
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
@@ -26,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
@@ -34,9 +36,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.todoapp.R
 import com.todoapp.feature_note.presentation.notes.components.NoteItem
 import com.todoapp.feature_note.presentation.notes.components.OrderSection
 import com.todoapp.feature_note.presentation.util.Screens
@@ -49,7 +54,9 @@ fun NotesScreen(
     navController: NavController,
     viewModel: NotesViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val state = viewModel.state.value
+    Log.e("=state values=","===${state.notes.toString()}")
     //val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -61,9 +68,10 @@ fun NotesScreen(
                 },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
+                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(id = R.string.addNote))
             }
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
        //, scaffoldState = scaffoldState
               ,  content ={   padding ->
         Column(
@@ -77,7 +85,7 @@ fun NotesScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Your note",
+                    text = stringResource(id = R.string.your),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 IconButton(
@@ -87,7 +95,7 @@ fun NotesScreen(
                 ) {
                     Icon(
                         imageVector = Icons.Default.Sort,
-                        contentDescription = "Sort"
+                        contentDescription = stringResource(id = R.string.sort)
                     )
                 }
             }
@@ -123,8 +131,8 @@ fun NotesScreen(
                             viewModel.onEvent(NoteEvents.DeleteNote(note))
                             scope.launch {
                                 val result = snackbarHostState.showSnackbar(
-                                    message = "Note deleted",
-                                    actionLabel = "Undo"
+                                    message = context.resources.getString(R.string.delete),
+                                    actionLabel =  context.resources.getString(R.string.undo)
                                 )
                                 if(result == SnackbarResult.ActionPerformed) {
                                     viewModel.onEvent(NoteEvents.RestoreNote)
@@ -138,3 +146,5 @@ fun NotesScreen(
         }
     })
 }
+
+

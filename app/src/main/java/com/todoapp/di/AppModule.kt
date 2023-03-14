@@ -46,12 +46,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteUseCases(repository: NoteRepository):NoteUseCases{
+    fun provideNoteUseCases(repository: NoteRepository,app:Application):NoteUseCases{
 
         return NoteUseCases(
             getNotes = GetNotesUseCase(repository),
             deleteNote = DeleteNoteUseCase(repository),
-            addNote = AddNoteUseCase(repository),
+            addNote = AddNoteUseCase(repository,app),
             getNote = SingleNoteUseCase(repository)
         )
     }

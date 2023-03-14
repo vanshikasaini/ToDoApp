@@ -24,6 +24,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -49,6 +51,7 @@ fun AddEditNoteScreen(
     noteColor: Int,
     viewModel: AddEditNoteViewModel = hiltViewModel()
 ) {
+
     val titleState = viewModel.noteTitle.value
     val contentState = viewModel.noteContent.value
 
@@ -60,7 +63,9 @@ fun AddEditNoteScreen(
         )
     }
     val scope = rememberCoroutineScope()
-
+/*
+* observing the events
+* */
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
@@ -88,6 +93,7 @@ fun AddEditNoteScreen(
                 Icon(imageVector = Icons.Default.Save, contentDescription = "Save note")
             }
         }, //scaffoldState = scaffoldState
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     content= {padding ->
         Column(
             modifier = Modifier
