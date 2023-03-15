@@ -1,5 +1,6 @@
 package com.todoapp.feature_note.presentation.notes
 
+
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -38,13 +39,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.todoapp.R
 import com.todoapp.feature_note.presentation.notes.components.NoteItem
 import com.todoapp.feature_note.presentation.notes.components.OrderSection
 import com.todoapp.feature_note.presentation.util.Screens
+import com.todoapp.ui.theme.ToDoAppTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +67,8 @@ fun NotesScreen(
                 onClick = {
                     navController.navigate(Screens.AddEditNoteScreen.route)
                 },
-                containerColor = MaterialTheme.colorScheme.primary
+                containerColor = MaterialTheme.colorScheme.secondary
+
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(id = R.string.addNote))
             }
@@ -77,7 +79,7 @@ fun NotesScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(ToDoAppTheme.paddings.defaultPadding)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -86,7 +88,7 @@ fun NotesScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.your),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = ToDoAppTheme.typography.titleLarge
                 )
                 IconButton(
                     onClick = {
@@ -107,14 +109,14 @@ fun NotesScreen(
                 OrderSection(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 16.dp),
+                        .padding(vertical = ToDoAppTheme.paddings.defaultPadding),
                     noteOrder = state.noteOrder,
                     onOrderChange = {
                         viewModel.onEvent(NoteEvents.Order(it))
                     }
                 )
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(ToDoAppTheme.paddings.defaultPadding))
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state.notes) { note ->
                     NoteItem(
@@ -140,7 +142,7 @@ fun NotesScreen(
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(ToDoAppTheme.paddings.defaultPadding))
                 }
             }
         }

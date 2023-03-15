@@ -24,16 +24,16 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.todoapp.feature_note.domain.models.Note
+import com.todoapp.ui.theme.ToDoAppTheme
 
 @Composable
 fun NoteItem(
     note: Note,
     modifier: Modifier = Modifier,
-    cornerRadius: Dp = 10.dp,
-    cutCornerSize: Dp = 30.dp,
+    cornerRadius: Dp = ToDoAppTheme.paddings.padding_10,
+    cutCornerSize: Dp = ToDoAppTheme.paddings.padding_30,
     onDeleteClick: () -> Unit
 ) {
     Box(
@@ -67,8 +67,8 @@ fun NoteItem(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
-                .padding(end = 32.dp)
+                .padding(ToDoAppTheme.paddings.defaultPadding)
+                .padding(end = ToDoAppTheme.paddings.padding_32)
         ) {
             Text(
                 text = note.title,
@@ -77,7 +77,7 @@ fun NoteItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(ToDoAppTheme.paddings.smallPadding))
             Text(
                 text = note.content,
                 style = MaterialTheme.typography.bodySmall,

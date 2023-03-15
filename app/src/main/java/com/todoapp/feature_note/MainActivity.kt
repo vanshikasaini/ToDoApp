@@ -1,4 +1,4 @@
-package com.todoapp
+package com.todoapp.feature_note.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,7 +7,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,33 +33,38 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                  val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Screens.NotesScreen.route )
+                    val navController = rememberNavController()
+
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screens.NotesScreen.route
+                    )
                     {
-                        composable(route = Screens.NotesScreen.route){
+                        composable(route = Screens.NotesScreen.route) {
                             NotesScreen(navController = navController)
                         }
-                        composable(route = Screens.AddEditNoteScreen.route+
-                        "?noteId={noteId}&noteColor={noteColor}",
-                            arguments= listOf(
+                        composable(route = Screens.AddEditNoteScreen.route +
+                                "?noteId={noteId}&noteColor={noteColor}",
+                            arguments = listOf(
                                 navArgument(
-                                    name="noteId"
-                                ){
-                                    type= NavType.IntType
-                                    defaultValue=-1
+                                    name = "noteId"
+                                ) {
+                                    type = NavType.IntType
+                                    defaultValue = -1
                                 },
                                 navArgument(
-                                    name="noteColor"
-                                ){
-                                    type= NavType.IntType
-                                    defaultValue=-1
+                                    name = "noteColor"
+                                ) {
+                                    type = NavType.IntType
+                                    defaultValue = -1
                                 }
                             )
-                        ){
-                            val color=it.arguments?.getInt("noteColor")?: -1
+                        ) {
+                            val color = it.arguments?.getInt("noteColor") ?: -1
                             AddEditNoteScreen(
                                 navController = navController,
-                                noteColor =color )
+                                noteColor = color
+                            )
                         }
                     }
                 }
@@ -69,18 +73,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     ToDoAppTheme {
-        Greeting("Android")
+
     }
 }
