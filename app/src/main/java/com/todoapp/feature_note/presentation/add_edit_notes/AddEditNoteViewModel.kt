@@ -1,7 +1,10 @@
 package com.todoapp.feature_note.presentation.add_edit_notes
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -20,7 +23,7 @@ class AddEditNoteViewModel @Inject constructor(
     private val noteUseCases: NoteUseCases,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
+    private var titleTextLen = mutableStateOf("")
     private val _noteTitle = mutableStateOf(NoteTextFieldState(hint = "Enter Title ...."))
     val noteTitle: State<NoteTextFieldState> = _noteTitle
 
@@ -62,8 +65,11 @@ class AddEditNoteViewModel @Inject constructor(
     fun onEvent(event: AddEditNoteEvent) {
         when (event) {
             is AddEditNoteEvent.EnteredTitle -> {
+
+                if (event.value.length <= 30)  titleTextLen.value = event.value
                 _noteTitle.value = noteTitle.value.copy(
-                    text = event.value
+                    text = titleTextLen.value
+                    //text = event.value
                 )
             }
 

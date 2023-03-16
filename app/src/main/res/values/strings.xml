@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">To Do :)</string>
-    <string name="your">"Your Note"</string>
+    <string name="your">"Your Notes"</string>
     <string name="delete">"Note deleted"</string>
     <string name="undo">"Undo"</string>
     <string name="addNote">"Add note"</string>

@@ -75,11 +75,12 @@ fun NotesScreen(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
        //, scaffoldState = scaffoldState
-              ,  content ={   padding ->
+              ,  content ={ padding ->
+           // Log.e("=============","-------->$paddingValues")
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(ToDoAppTheme.paddings.defaultPadding)
+               .padding(ToDoAppTheme.paddings.defaultPadding)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
