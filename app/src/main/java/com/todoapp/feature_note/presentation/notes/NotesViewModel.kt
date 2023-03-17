@@ -1,6 +1,6 @@
 package com.todoapp.feature_note.presentation.notes
 
-import android.util.Log
+
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -83,7 +83,7 @@ class NotesViewModel @Inject constructor(
         * everytime called getNotes fun- get new flow a new instance of that flow
         * so when we call everytime we should cancel the old coroutine
         * */
-        Log.e("=Note Ordertype==", "==${noteOrder.orderType}")
+
         getNoteJob?.cancel()
 
         getNoteJob = noteUsesCases.getNotes(noteOrder).onEach { notes ->

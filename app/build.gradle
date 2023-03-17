@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    //id 'kotlin-android'
     id 'com.google.dagger.hilt.android'
 
 }
@@ -18,7 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.todoapp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -31,23 +32,34 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+      //  jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.2'
+      //  kotlinCompilerExtensionVersion '1.3.2'
+        kotlinCompilerExtensionVersion '1.4.3'
 
     }
-    packagingOptions {
+    packaging {
         resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            //excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += '/META-INF/{LICENSE.md}'
+            excludes += '/META-INF/{NOTICE.md}'
+            excludes += '/META-INF/{LICENSE-notice.md}'
         }
+    }
+    testOptions {
+        unitTests.includeAndroidResources = true
     }
 //    packaging{
 //
@@ -65,10 +77,11 @@ android {
 
 dependencies {
 
+
     def composeBom = platform('androidx.compose:compose-bom:2023.01.00')
     implementation composeBom
     androidTestImplementation composeBom
-
+   // implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation 'androidx.core:core-ktx:1.9.0'
     //navigation
  //   implementation 'androidx.navigation:navigation-compose:2.5.3'
@@ -111,6 +124,8 @@ dependencies {
     testImplementation 'com.google.truth:truth:1.1.3'
     debugImplementation 'androidx.compose.ui:ui-test-manifest:1.4.0-rc01'
     testImplementation 'io.mockk:mockk:1.13.4'
+   // testImplementation 'org.robolectric:robolectric:4.10-alpha-1'
+   // testImplementation 'androidx.test.ext:junit-ktx:1.1.5'
 
     // Instrumentation tests
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.45'
@@ -120,13 +135,13 @@ dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
     androidTestImplementation 'com.google.truth:truth:1.1.3'
     androidTestImplementation 'androidx.test:core-ktx:1.4.1-alpha05'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+   // androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 
     androidTestImplementation 'com.squareup.okhttp3:mockwebserver:5.0.0-alpha.11'
     androidTestImplementation 'io.mockk:mockk-android:1.13.4'
     androidTestImplementation 'androidx.test:runner:1.5.0-alpha02'
 
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
