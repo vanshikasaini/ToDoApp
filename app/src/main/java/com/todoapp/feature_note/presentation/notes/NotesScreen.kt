@@ -1,7 +1,7 @@
 package com.todoapp.feature_note.presentation.notes
 
 
-import android.util.Log
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
@@ -38,10 +38,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.todoapp.R
+import com.todoapp.core.TestTags
 import com.todoapp.feature_note.presentation.notes.components.NoteItem
 import com.todoapp.feature_note.presentation.notes.components.OrderSection
 import com.todoapp.feature_note.presentation.util.Screens
@@ -57,7 +59,7 @@ fun NotesScreen(
 ) {
     val context = LocalContext.current
     val state = viewModel.state.value
-    Log.e("=state values=","===${state.notes.toString()}")
+
     //val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -76,7 +78,7 @@ fun NotesScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) }
        //, scaffoldState = scaffoldState
               ,  content ={ padding ->
-           // Log.e("=============","-------->$paddingValues")
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -110,7 +112,9 @@ fun NotesScreen(
                 OrderSection(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = ToDoAppTheme.paddings.defaultPadding),
+                        .padding(vertical = ToDoAppTheme.paddings.defaultPadding)
+                        .testTag(TestTags.ORDER_SECTION)
+                    ,
                     noteOrder = state.noteOrder,
                     onOrderChange = {
                         viewModel.onEvent(NoteEvents.Order(it))
