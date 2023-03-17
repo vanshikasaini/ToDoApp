@@ -14,6 +14,9 @@ import com.todoapp.ui.theme.Raspberry
 import com.todoapp.ui.theme.RedOrange
 import com.todoapp.ui.theme.RedPink
 import com.todoapp.ui.theme.Yellow
+import com.todoapp.ui.theme.light_CustomColor1Container
+import com.todoapp.ui.theme.md_theme_dark_error
+import com.todoapp.ui.theme.md_theme_light_secondaryContainer
 
 @Entity
 data class Note(
@@ -26,7 +29,8 @@ data class Note(
 ){
 
     companion object{
-         val notesColors= listOf(RedOrange, RedPink,CrownBlue,Pink40,Pink80, LightGreen,LightBlue,Raspberry,Yellow,Green)
+         //val notesColors= listOf(RedOrange, RedPink,CrownBlue,Pink40,Pink80, LightGreen,LightBlue,Raspberry,Yellow,Green)
+         val notesColors= listOf(RedOrange,RedPink,md_theme_dark_error, md_theme_light_secondaryContainer,light_CustomColor1Container,CrownBlue,Pink40,Pink80, LightGreen,LightBlue,Raspberry,Yellow,Green)
     }
 }
 class InvalidNoteException(message:String):Exception(message)
