@@ -26,7 +26,7 @@ fun TransparentHintTextField(
     textStyle: TextStyle = TextStyle(),
     singleLine: Boolean = false,
     testTag: String = "",
-    imeAction: ImeAction = ImeAction.Done,
+    imeAction: ImeAction = ImeAction.Default,
     onFocusChange: (FocusState) -> Unit
 ) {
     Box(
