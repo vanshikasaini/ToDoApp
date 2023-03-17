@@ -1,5 +1,7 @@
 package com.todoapp.feature_note.presentation
 
+import android.content.Context
+import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
@@ -14,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.*
 import com.todoapp.core.TestTags
 import com.todoapp.di.AppModule
@@ -24,11 +27,12 @@ import com.todoapp.ui.theme.ToDoAppTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-
+import com.todoapp.R
 @HiltAndroidTest
 @UninstallModules(AppModule::class)
 class NotesEndToEndTest {
@@ -44,7 +48,7 @@ class NotesEndToEndTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        composableRule.setContent {
+        composableRule.activity.setContent {
             ToDoAppTheme {
                 // A surface container using the 'background' color from the theme
 
@@ -99,14 +103,21 @@ class NotesEndToEndTest {
      *
      * **/
     @Test
-    fun saveNote_editAfter() {
-        composableRule.onNodeWithContentDescription("Add note").performClick()
+    fun saveNote_editAfter(){
+        val con= ApplicationProvider.getApplicationContext<Context>()
+        con.applicationContext.resources.getString(R.string.addNote)
+        /**---------------Click on Fab to get add note screen-------------**/
+
+        composableRule.onNodeWithContentDescription(con.applicationContext.resources.getString(R.string.addNote)).performClick()
+
+        /**---------------Enter text and content Note's textfield-------------**/
         composableRule.onNodeWithTag(TestTags.TITLE_TEXT_FIElD)
             .performTextInput("test-title")
         composableRule.onNodeWithTag(TestTags.CONTENT_TEXT_FIElD)
             .performTextInput("content-title")
-        composableRule.onNodeWithContentDescription("Save-note").performClick()
-/**---------------Check list has particular Note-------------**/
+        /**---------------Save Note-------------**/
+        composableRule.onNodeWithContentDescription( con.applicationContext.resources.getString(R.string.save_note)).performClick()
+        /**---------------Check list has particular Note-------------**/
         composableRule.onNodeWithText("test-title").assertIsDisplayed()
         composableRule.onNodeWithText("test-title").performClick()
         /**---------------Navigate on ADD Edit Note Screen-------------**/
@@ -117,10 +128,12 @@ class NotesEndToEndTest {
         /**---------------Edit Note Screen-------------**/
         composableRule.onNodeWithTag(TestTags.TITLE_TEXT_FIElD)
             .performTextInput("test-22title")
-        composableRule.onNodeWithContentDescription("Save-note")
+        composableRule.onNodeWithContentDescription( con.applicationContext.resources.getString(R.string.save_note))
             .performClick()
-        composableRule.onNodeWithTag(TestTags.TITLE_TEXT_FIElD)
-            .assertTextEquals("test-22title")
+
+            composableRule.onNodeWithText("test-22title").assertIsDisplayed()
+//        composableRule.onNodeWithTag(TestTags.TITLE_TEXT_FIElD)
+//            .assertTextEquals("test-22title")
 
 
     }

@@ -1,6 +1,7 @@
 package com.todoapp.feature_note.presentation.notes
 
 import android.content.Context
+import androidx.activity.compose.setContent
 import com.google.common.truth.Truth.*
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
@@ -36,13 +37,13 @@ class NotesScreenKtTest {
 
     /**-------compose test rule------**/
     @get:Rule(order = 1)
-    val compsableRule = createAndroidComposeRule<MainActivity>()
+    val composableRule = createAndroidComposeRule<MainActivity>()
 
     @OptIn(ExperimentalAnimationApi::class)
     @Before
     fun setUp() {
         hiltRule.inject()
-        compsableRule.setContent {
+        composableRule.activity.setContent {
 
             val navController = rememberNavController()
             ToDoAppTheme {
@@ -65,9 +66,9 @@ class NotesScreenKtTest {
 //            .targetContext//
 //        val con= ApplicationProvider.getApplicationContext<Context>()
 //        con.applicationContext.resources.getString(R.string.sort)
-        compsableRule.onNodeWithTag(TestTags.ORDER_SECTION).assertDoesNotExist()
-        compsableRule.onNodeWithContentDescription("Sort").performClick()
-        compsableRule.onNodeWithTag(TestTags.ORDER_SECTION).assertIsDisplayed()
+        composableRule.onNodeWithTag(TestTags.ORDER_SECTION).assertDoesNotExist()
+        composableRule.onNodeWithContentDescription("Sort").performClick()
+        composableRule.onNodeWithTag(TestTags.ORDER_SECTION).assertIsDisplayed()
 
     }
 }
