@@ -44,6 +44,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.todoapp.R
+import com.todoapp.core.TestTags
 import com.todoapp.feature_note.domain.models.Note
 import com.todoapp.feature_note.presentation.add_edit_notes.components.TransparentHintTextField
 import com.todoapp.ui.theme.ToDoAppTheme
@@ -155,6 +156,7 @@ fun AddEditNoteScreen(
                 singleLine = true,
                 textStyle = ToDoAppTheme.typography.bodyLarge,
                 imeAction = ImeAction.Next,
+                testTag = TestTags.TITLE_TEXT_FIElD
 //                keyboardActions =KeyboardActions(
 //                    onNext = {
 //                        focusManager.moveFocus(FocusDirection.Down)
@@ -173,7 +175,8 @@ fun AddEditNoteScreen(
                 },
                 isHintVisible = contentState.isHintVisible,
                 textStyle = ToDoAppTheme.typography.labelSmall,
-                modifier = Modifier.fillMaxHeight()
+                modifier = Modifier.fillMaxHeight(),
+                testTag = TestTags.CONTENT_TEXT_FIElD
             )
         }
     }

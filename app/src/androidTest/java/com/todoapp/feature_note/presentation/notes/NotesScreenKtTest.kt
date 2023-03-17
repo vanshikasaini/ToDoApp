@@ -1,6 +1,7 @@
 package com.todoapp.feature_note.presentation.notes
 
 import android.content.Context
+import com.google.common.truth.Truth.*
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -21,7 +22,7 @@ import com.todoapp.ui.theme.ToDoAppTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import org.junit.Assert.*
+//import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -60,8 +61,8 @@ class NotesScreenKtTest {
 
     @Test
     fun clickToggleOrderSection_isVisible() {
-        val context = InstrumentationRegistry.getInstrumentation()
-            .targetContext//
+//        val context = InstrumentationRegistry.getInstrumentation()
+//            .targetContext//
 //        val con= ApplicationProvider.getApplicationContext<Context>()
 //        con.applicationContext.resources.getString(R.string.sort)
         compsableRule.onNodeWithTag(TestTags.ORDER_SECTION).assertDoesNotExist()

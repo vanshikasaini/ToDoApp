@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.todoapp.ui.theme.BabyBlue
 import com.todoapp.ui.theme.Blue
+import com.todoapp.ui.theme.CrownBlue
 import com.todoapp.ui.theme.Green
 import com.todoapp.ui.theme.LightBlue
 import com.todoapp.ui.theme.LightGreen
@@ -25,7 +26,7 @@ data class Note(
 ){
 
     companion object{
-         val notesColors= listOf(RedOrange, RedPink,BabyBlue,Pink40,Pink80, LightGreen,LightBlue,Raspberry,Yellow,Green)
+         val notesColors= listOf(RedOrange, RedPink,CrownBlue,Pink40,Pink80, LightGreen,LightBlue,Raspberry,Yellow,Green)
     }
 }
 class InvalidNoteException(message:String):Exception(message)
